@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Happy Birthday Sammia Asghar 🎂</title>
+  <meta name="theme-color" content="#140a2a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <canvas id="scene"></canvas>
+
+  <header class="title" id="title">
+    <p class="small">✨ Happy Birthday ✨</p>
+    <h1><span class="cap">S</span>ammia <span class="cap">A</span>sghar</h1>
+    <p class="date">🎂 2 October 🎂</p>
+  </header>
+
+  <button class="blow hide" id="blow">🕯️ Make a wish &amp; blow</button>
+  <button class="mute hide" id="mute" aria-label="Music on/off">🔊</button>
+
+  <section class="card hide" id="card">
+    <h2>Happy Birthday, Sammia Asghar! 🎉</h2>
+    <p id="message"></p>
+    <button id="again">Wish again 🎂</button>
+  </section>
+
+  <section class="intro" id="intro">
+    <div class="intro-box">
+      <div class="gift">🎁</div>
+      <h2>A little universe was built just for you</h2>
+      <button id="open" disabled>Gathering stardust… ✨</button>    </div>
+  </section>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>

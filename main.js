@@ -78,12 +78,12 @@ function resize() {
   if (layout.portrait) {
     camDist = camera.aspect < 0.7 ? 14.5 : 13.5;
     layout.photo = { x: 0, y: 0.4, s: 0.85 };
-    layout.cake = { x: 0, y: -4.3, s: 0.72 };
+    layout.cake = { x: 0, y: -4.4, s: 0.9 };
     controls.target.set(0, -0.2, 0);
   } else {
     camDist = camera.aspect < 1.3 ? 15 : 12.5;
     layout.photo = { x: -4.2, y: -0.4, s: 1 };
-    layout.cake = { x: 4.2, y: -2.7, s: 0.95 };
+    layout.cake = { x: 4.0, y: -2.9, s: 1.15 };
     controls.target.set(0, -0.5, 0);
   }
   camera.position.set(0, 0.8, camDist);
@@ -230,6 +230,41 @@ for (let i = 0; i < 8; i++) {
   cherry.position.set(Math.cos(a) * 0.72, 1.6, Math.sin(a) * 0.72);
   cake.add(cherry);
 }
+
+// kawaii face on the front of the bottom tier
+const ink = new THREE.MeshStandardMaterial({ color: 0x2a1238, roughness: 0.3 });
+for (const sx of [-1, 1]) {
+  const eye = new THREE.Mesh(new THREE.SphereGeometry(0.075, 16, 12), ink);
+  eye.position.set(sx * 0.3, 0.52, 1.26);
+  eye.scale.z = 0.5;
+  cake.add(eye);
+  const shine = new THREE.Mesh(new THREE.SphereGeometry(0.025, 8, 6), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+  shine.position.set(sx * 0.3 + 0.025, 0.55, 1.3);
+  cake.add(shine);
+  const blush = new THREE.Mesh(new THREE.SphereGeometry(0.11, 16, 10), new THREE.MeshStandardMaterial({ color: 0xff8fb8, roughness: 0.7 }));
+  blush.position.set(sx * 0.55, 0.4, 1.17);
+  blush.scale.z = 0.3;
+  blush.lookAt(sx * 1.2, 0.4, 2.4);
+  cake.add(blush);
+}
+const smile = new THREE.Mesh(new THREE.TorusGeometry(0.11, 0.025, 8, 20, Math.PI), ink);
+smile.rotation.z = Math.PI;
+smile.position.set(0, 0.45, 1.27);
+cake.add(smile);
+
+// sprinkles and a heart topper
+const sprinkleColors = [0xff7eb3, 0xffd166, 0x7bdff2, 0xc77dff, 0xffffff];
+for (let i = 0; i < 34; i++) {
+  const a = rand(0, Math.PI * 2), r = rand(0.08, 0.8);
+  const sp = new THREE.Mesh(new THREE.CapsuleGeometry(0.012, 0.06, 4, 6), mat(sprinkleColors[i % 5]));
+  sp.position.set(Math.cos(a) * r, 1.56, Math.sin(a) * r);
+  sp.rotation.set(Math.PI / 2, 0, rand(0, 3));
+  cake.add(sp);
+}
+const topper = new THREE.Mesh(heartGeometry(0.1), new THREE.MeshPhysicalMaterial({ color: 0xff5fa2, roughness: 0.2, clearcoat: 1, emissive: 0x440b26 }));
+topper.rotation.z = Math.PI;
+topper.position.y = 1.78;
+cake.add(topper);
 
 const flames = [];
 const candleColors = [0xff7eb3, 0x7bdff2, 0xffd166, 0xc77dff, 0xffffff];
@@ -550,7 +585,9 @@ function tick() {
   cake.scale.setScalar(Math.max(cs * layout.cake.s, 0.0001));
   cake.position.x = layout.cake.x;
   cake.position.y = layout.cake.y + Math.sin(t * 1.1 + 1) * 0.06;
-  cake.rotation.y = t * 0.25;
+  cake.rotation.y = Math.sin(t * 0.5) * 0.45;
+  topper.rotation.y = t * 1.5;
+  topper.scale.setScalar(1 + Math.sin(t * 4) * 0.1);
   flameLight.position.set(layout.cake.x, layout.cake.y + 2 * layout.cake.s, 1.2);
 
   // camera glides left and right on its own; dragging pauses it

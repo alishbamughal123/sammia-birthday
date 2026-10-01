@@ -47,7 +47,12 @@ body.started .title { opacity: 1; }
   filter: drop-shadow(0 4px 18px rgba(255, 126, 179, .45));
   animation: shine 5s linear infinite;
 }
-.title .date { margin: 2px 0 0; font-weight: 700; letter-spacing: .12em; font-size: clamp(13px, 3.2vw, 18px); color: var(--gold); }
+.title .date {
+  display: inline-block; margin: 6px 0 0; padding: 6px 20px; border-radius: 999px;
+  font-weight: 700; letter-spacing: .14em; font-size: clamp(16px, 4.2vw, 24px); color: #fff1b8;
+  background: rgba(255, 255, 255, .1); border: 1px solid rgba(246, 215, 122, .5);
+  backdrop-filter: blur(6px);
+}
 .title h1 { font-family: 'Dancing Script', cursive; font-weight: 700; }
 .title .cap { font-size: 1.35em; line-height: 1; }
 .intro-box .credit { margin: 18px 0 0; font-size: 11px; opacity: .6; }
